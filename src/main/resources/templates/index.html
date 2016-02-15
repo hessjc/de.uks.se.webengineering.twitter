@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head data-th-replace="inc/head :: head(#{index.head.title})"></head>
+<body>
+<nav data-th-replace="inc/navigation :: navigation(${auth})"></nav>
+<div class="container" id="content">
+    <div class="row">
+        <div id="dashboard" data-th-replace="content/dashboard :: dashboard(${user},${template},${gravatar})"></div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-11 box">
+                    <div class="row content">
+                        <h3 data-th-text="#{index.content.following}">Here are some people you might enjoy
+                            following.</h3>
+                        <table class="table col-md-12">
+                            <tr data-th-each="following : ${users}">
+                                <form data-th-action="@{/follow}"
+                                      data-th-if="${user.following.contains(following) == false} and ${user.equals(following) == false}">
+                                    <input type="hidden" data-th-value="${following.id}" name="id"/>
+                                    <td><a data-th-text="${following.username}"
+                                           data-th-href="@{/profile/} + ${following.username}"></a></td>
+                                    <td>
+                                        <button class="btn btn-default" data-th-text="#{index.content.follow}"
+                                                type="submit" formmethod="post">
+                                        </button>
+                                    </td>
+                                </form>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr/>
+                    <div class="row content">
+                        <form class="form-inline" data-th-action="@{/tweet}" method="post" id="tweetForm"
+                              accept-charset="UTF-8">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">$</div>
+                                   <textarea class="form-control" rows="4" name="message"
+                                             data-th-placeholder="#{index.form.placeholder}" maxlength="141"></textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" data-th-text="#{index.form.submit}">Tweet
+                            </button>
+                        </form>
+                    </div>
+                    <hr/>
+                    <div class="row content">
+                        <div class="table-responsive">
+                            <table class="table col-md-12">
+                                <div class="form-group">
+                                    <label for="tweetSelection" data-th-text="#{index.form.selection}">Tweet
+                                        Selection:</label>
+                                    <select class="form-control" id="tweetSelection">
+                                        <option selected="selected" disabled="disabled" data-th-text="${selection}">#
+                                        </option>
+                                        <option value="all">all</option>
+                                        <option value="own">own</option>
+                                        <option value="following">following</option>
+                                    </select>
+                                </div>
+                                <tr data-th-each="tweet : ${tweets}">
+                                    <td><a data-th-text="${tweet.user.username}"
+                                           data-th-href="@{/profile/} + ${tweet.user.username}"></a></td>
+                                    <td data-th-text="${tweet.date}"></td>
+                                    <td data-th-text="${tweet.message}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <nav>
+                            <ul class="pager">
+                                <li data-th-if="${page.first == false}" class="previous"><a
+                                        data-th-href="@{__${#httpServletRequest.requestURI}__(page=${page.number-1},show=${selection})}" data-th-text="#{index.pagination.older}">Older</a></li>
+                                <li data-th-if="${page.last == false}" class="next"><a
+                                        data-th-href="@{__${#httpServletRequest.requestURI}__(page=${page.number+1},show=${selection})}" data-th-text="#{index.pagination.newer}">Newer</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div data-th-replace="content/sidebar :: sidebar"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-th-include="inc/javascript :: javascript"></div>
+
+<script>
+    $(function () {
+        // bind change event to select
+        $('#tweetSelection').on('change', function () {
+            var url = "/?show=" + $(this).val(); // get selected value
+            if (url) { // require a URL
+                document.location.href = url; // redirect
+            }
+            return false;
+        });
+    });
+</script>
+
+</body>
+</html>

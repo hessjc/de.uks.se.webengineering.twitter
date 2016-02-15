@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head data-th-replace="inc/head :: head(#{index.head.title})"></head>
+<body>
+<nav data-th-replace="inc/navigation :: navigation(${auth})"></nav>
+<div class="container" id="content">
+    <div class="row">
+        <div id="dashboard" data-th-replace="content/dashboard :: dashboard(${user},${template},${gravatar})"></div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-11 box">
+                    <div class="row content">
+                        <table class="table table-responsive">
+                            <tbody>
+                            <tr data-th-each="follower : ${user.followers}">
+                                <form data-th-action="@{/block}">
+                                    <input type="hidden" data-th-value="${follower.id}" name="id"/>
+                                    <td><a data-th-text="${follower.username}"
+                                           data-th-href="@{/profile/} + ${follower.username}"></a></td>
+                                    <td>
+                                        <button class="btn btn-danger" data-th-text="#{follower.content.block}"
+                                                type="submit" formmethod="post">
+                                        </button>
+                                    </td>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-th-include="inc/javascript :: javascript"></div>
+</body>
+</html>

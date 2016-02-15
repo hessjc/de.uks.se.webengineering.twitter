@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head data-th-replace="inc/head :: head(#{index.head.title})"></head>
+<body>
+<nav data-th-replace="inc/navigation :: navigation(${auth})"></nav>
+<div class="container" id="content">
+    <div class="row">
+        <div id="dashboard" data-th-replace="content/dashboard :: dashboard(${user},${template},${gravatar})"></div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-11 box">
+
+                    <div class="row content">
+                        <h3 data-th-text="#{profile.description}"></h3>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <td data-th-utext="${user.description}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <hr/>
+
+                    <div class="row content">
+                        <h3 data-th-text="#{profile.following}"></h3>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td class="col-md-2" data-th-text="#{profile.following.id}">Id</td>
+                                    <td class="col-md-10" data-th-text="#{profile.following.username}">Name</td>
+                                </tr>
+                                </thead>
+                                <tr data-th-each="following : ${user.following}">
+                                    <td data-th-text="${following.id}"></td>
+                                    <td><a data-th-text="${following.username}"
+                                           data-th-href="@{/profile/} + ${following.username}"></a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row content">
+                        <h3 data-th-text="#{profile.follower}"></h3>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td class="col-md-2" data-th-text="#{profile.follower.id}">Id</td>
+                                    <td class="col-md-10" data-th-text="#{profile.follower.username}">Name</td>
+                                </tr>
+                                </thead>
+                                <tr data-th-each="follower : ${user.followers}">
+                                    <td data-th-text="${follower.id}"></td>
+                                    <td><a data-th-text="${follower.username}"
+                                           data-th-href="@{/profile/} + ${follower.username}"></a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row content">
+                        <h3 data-th-text="#{profile.tweets}"></h3>
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td class="col-md-2" data-th-text="#{profile.tweet.date}">Date</td>
+                                    <td class="col-md-10" data-th-text="#{profile.tweet.message}">Tweet</td>
+                                </tr>
+                                </thead>
+                                <tr data-th-each="tweet : ${tweets}">
+                                    <td data-th-text="${tweet.date}"></td>
+                                    <td data-th-text="${tweet.message}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <nav>
+                        <ul class="pager">
+                            <li data-th-if="${page.first == false}" class="previous"><a
+                                    data-th-href="@{__${#httpServletRequest.requestURI}__(page=${page.number-1})}" data-th-text="#{profile.pagination.older}">Older</a></li>
+                            <li data-th-if="${page.last == false}" class="next"><a
+                                    data-th-href="@{__${#httpServletRequest.requestURI}__(page=${page.number+1})}" data-th-text="#{profile.pagination.newer}">Newer</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-th-include="inc/javascript :: javascript"></div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head data-th-replace="inc/head :: head(#{index.head.title})"></head>
+<body>
+<nav data-th-replace="inc/navigation :: navigation(${auth})"></nav>
+<div class="container" id="content">
+    <div class="row">
+        <div id="dashboard" data-th-replace="content/dashboard :: dashboard(${user},${template},${gravatar})"></div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-11 box">
+                    <div class="row content">
+                        <form class="form-horizontal" data-th-action="@{/search}" method="get">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <input class="form-control" type="text" name="query" data-th-value="${query}"
+                                           autofocus="autofocus" data-th-placeholder="#{search.form.placeholder}"
+                                           maxlength="255"/>
+                                </div>
+                                <button class="col-md-1 btn btn-success" type="submit"
+                                        data-th-text="#{search.form.submit}">Submit
+                                </button>
+                            </div>
+                        </form>
+                        <hr/>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <td class="col-md-1" data-th-text="#{search.table.id}">ID</td>
+                                    <td class="col-md-1" data-th-text="#{search.table.username}">User</td>
+                                    <td class="col-md-9" data-th-text="#{search.table.tweet}">Tweet</td>
+                                </tr>
+                                </thead>
+                                <tr data-th-each="tweet : ${list}">
+                                    <td data-th-text="${tweet.id}"></td>
+                                    <td data-th-text="${tweet.user.username}"></td>
+                                    <td data-th-text="${tweet.message}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-th-include="inc/javascript :: javascript"></div>
+</body>
+</html>

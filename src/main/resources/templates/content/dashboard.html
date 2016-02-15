@@ -1,0 +1,40 @@
+<div class="col-md-3" id="dashboard" data-th-fragment="dashboard(user,template,gravatar)">
+    <div class="row">
+        <div class="col-md-11 box">
+            <img data-th-src="${user.header}" class="img-responsive img-rounded header"/>
+
+            <div class="gravatar">
+                <img data-th-src="'http://www.gravatar.com/avatar/' + ${gravatar}" class="img-rounded"/>
+                <span class="dashboard-username white" data-th-text="${user.username}"></span>
+            </div>
+            <table class="table borderless" id="dashboard-table" data-th-if="${template.equals('settings') == false}">
+                <thead>
+                <th><a data-th-href="@{/profile/}+${user.username}" data-th-text="#{dashboard.tweets}"></a></th>
+                <th><a data-th-href="@{/following}" data-th-text="#{dashboard.following}"></a></th>
+                <th><a data-th-href="@{/follower}" data-th-text="#{dashboard.followers}"></a></th>
+                </thead>
+                <tr>
+                    <td data-th-text="${user.tweets.size()}"></td>
+                    <td data-th-text="${user.following.size()}"></td>
+                    <td data-th-text="${user.followers.size()}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row settings" data-th-if="${template.equals('settings')}">
+        <div class="col-md-11 box">
+            <div class="list-group row settings">
+                <a class="list-group-item" href="#account" data-toggle="tab" aria-controls="account" role="tab"
+                   data-th-text="#{dashboard.settings.account}">Account</a>
+                <a class="list-group-item" href="#settings" data-toggle="tab" aria-controls="settings" role="tab"
+                   data-th-text="#{dashboard.settings.security}">Settings and privacy</a>
+                <a class="list-group-item" href="#password" data-toggle="tab" aria-controls="password" role="tab"
+                   data-th-text="#{dashboard.settings.password}">Password</a>
+                <a class="list-group-item disabled" href="#email" data-toggle="tab" aria-controls="email" role="tab"
+                   data-th-text="#{dashboard.settings.email}">Email notfications</a>
+                <a class="list-group-item disabled" href="#settings" data-toggle="tab" aria-controls="settings"
+                   role="tab" data-th-text="#{dashboard.settings.design}">Design</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head data-th-replace="inc/head :: head(#{index.head.title})"></head>
+<body>
+<nav data-th-replace="inc/navigation :: navigation(${auth})"></nav>
+<div class="container" id="content">
+    <div class="row">
+        <div id="dashboard" data-th-replace="content/dashboard :: dashboard(${user},${template},${gravatar})"></div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-11 box">
+                    <div class="row content">
+                        <table class="table table-responsive">
+                            <tbody>
+                            <tr data-th-each="following : ${user.following}">
+                                <form data-th-action="@{/unfollow}">
+                                    <input type="hidden" data-th-value="${following.id}" name="id"/>
+                                    <td><a data-th-text="${following.username}"
+                                           data-th-href="@{/profile/} + ${following.username}"></a></td>
+                                    <td>
+                                        <button class="btn btn-danger" data-th-text="#{following.content.unfollow}"
+                                                type="submit" formmethod="post">
+                                        </button>
+                                    </td>
+                                </form>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-th-include="inc/javascript :: javascript"></div>
+</body>
+</html>

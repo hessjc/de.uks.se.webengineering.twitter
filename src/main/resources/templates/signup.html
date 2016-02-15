@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head data-th-replace="inc/head :: head(#{register.head.title})"></head>
+<body>
+<nav data-th-replace="inc/navigation :: navigation(${auth})"></nav>
+
+
+<div class="container" id="content">
+    <p class="lead" data-th-text="#{register.headline}"></p>
+
+    <div data-th-if="${userExists}" class="alert alert-danger alert-dismissible fade in" role="alert"
+         data-th-text="#{register.userExists}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div data-th-if="${emailExists}" class="alert alert-danger alert-dismissible fade in" role="alert"
+         data-th-text="#{register.emailExists}">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div data-th-if="${passwordsNotEqual}" class="alert alert-danger"
+         data-th-text="#{register.passwordsNotEqual}"></div>
+
+    <form class="form-horizontal" data-th-action="@{/register}" method="post">
+        <div class="form-group">
+            <label class="control-label col-md-1" data-th-text="#{register.form.username}">Username</label>
+
+            <div class="col-md-4">
+                <input class="form-control" type="text" name="username" data-th-value="${username}? ${username}"
+                       autofocus="autofocus"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1" data-th-text="#{register.form.email}">Email</label>
+
+            <div class="col-md-4">
+                <input class="form-control" type="email" name="email" data-th-value="${email}? ${email}"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1" data-th-text="#{register.form.password1}">Password</label>
+
+            <div class="col-md-4">
+                <input class="form-control" type="password" name="password1"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1" data-th-text="#{register.form.password2}">Password</label>
+
+            <div class="col-md-4">
+                <input class="form-control" type="password" name="password2"/>
+            </div>
+        </div>
+        <button class="col-md-offset-1 col-md-1 btn btn-success" type="submit" data-th-text="#{register.form.submit}">
+            Submit
+        </button>
+    </form>
+</div>
+<div data-th-replace="inc/javascript :: javascript"></div>
+</body>
+</html>

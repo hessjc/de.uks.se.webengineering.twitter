@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head data-th-replace="inc/head :: head(#{index.head.title})"></head>
+<body>
+<nav data-th-replace="inc/navigation :: navigation(${auth})"></nav>
+<div class="container" id="content">
+    <div class="row">
+        <div id="dashboard" data-th-replace="content/dashboard :: dashboard(${user},${template},${gravatar})"></div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-11 box">
+                    <div class="row content">
+
+                        <!-- Tab panes -->
+                        <div class="tab-pane tab-content fade in active">
+
+                            <div role="tabpanel" class="tab-pane active" id="account">
+
+                                <div data-th-if="${userExists}" class="alert alert-danger alert-dismissible fade in"
+                                     role="alert"
+                                     data-th-text="#{settings.account.userExists}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div data-th-if="${emailExists}" class="alert alert-danger alert-dismissible fade in"
+                                     role="alert"
+                                     data-th-text="#{settings.account.emailExists}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div data-th-if="${descriptionLength}"
+                                     class="alert alert-danger alert-dismissible fade in"
+                                     role="alert"
+                                     data-th-text="#{settings.account.descriptionLength}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div data-th-if="${accountSuccess}"
+                                     class="alert alert-success alert-dismissible fade in" role="alert"
+                                     data-th-text="#{settings.account.success}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+
+                                <form class="form-horizontal" data-th-action="@{/settings/account}" method="post">
+                                    <div class="form-group">
+                                        <div class="col-md-3" data-th-text="#{settings.form.username}">Username</div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="text" name="username"
+                                                   data-th-value="${user.username}"
+                                                   autofocus="autofocus"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3" data-th-text="#{settings.form.email}">Email</div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="email" name="email"
+                                                   data-th-value="${user.email}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3" data-th-text="#{settings.form.description}">Biography
+                                        </div>
+                                        <div class="col-md-9">
+                                            <textarea class="form-control" rows="4" name="description"
+                                                      data-th-text="${user.description}" maxlength="1024"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3" data-th-text="#{settings.form.header}">Header</div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="text" name="header"
+                                                   data-th-value="${user.header}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-success pull-right" type="submit"
+                                                    data-th-text="#{settings.form.submit}">
+                                                submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="settings" data-th-text="#{settings.form.privacy}">
+
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="password">
+
+                                <div data-th-if="${passwordNotConfirmed}"
+                                     class="alert alert-danger alert-dismissible fade in" role="alert"
+                                     data-th-text="#{settings.password.notconfirmed}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div data-th-if="${passwordNotEqual}"
+                                     class="alert alert-danger alert-dismissible fade in" role="alert"
+                                     data-th-text="#{settings.password.notequal}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div data-th-if="${passwordSuccess}"
+                                     class="alert alert-success alert-dismissible fade in" role="alert"
+                                     data-th-text="#{settings.password.success}">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+
+                                <form class="form-horizontal" data-th-action="@{/settings/password}" method="post">
+                                    <div class="form-group">
+                                        <div class="col-md-3" data-th-text="#{settings.form.password}">Current
+                                            password
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="password" name="password"
+                                                   autofocus="autofocus"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3" data-th-text="#{settings.form.newPassword}">New password
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="password" name="password1"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3" data-th-text="#{settings.form.newPassword.verify}">Verify
+                                            password
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input class="form-control" type="password" name="password2"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-success pull-right" type="submit"
+                                                    data-th-text="#{settings.form.submit}">
+                                                submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-th-include="inc/javascript :: javascript"></div>
+</body>
+</html>

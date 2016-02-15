@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head data-th-replace="inc/head :: head(#{welcome.head.title})"></head>
+<body>
+<nav data-th-replace="inc/navigation :: navigation(${auth})"></nav>
+
+<div class="container" id="content">
+    <form class="form-horizontal" data-th-action="@{/login}" method="post">
+        <div class="form-group">
+            <label class="control-label col-md-1" data-th-text="#{login.form.username}">Username</label>
+
+            <div class="col-md-4">
+                <input class="form-control" type="text" name="username" autofocus="autofocus"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-1" data-th-text="#{login.form.password}">Password</label>
+
+            <div class="col-md-4">
+                <input class="form-control" type="password" name="password"/>
+            </div>
+        </div>
+        <button class="col-md-offset-1 col-md-1 btn btn-success" type="submit" data-th-text="#{login.form.submit}">
+            Submit
+        </button>
+    </form>
+</div>
+<div data-th-replace="inc/javascript :: javascript"></div>
+</body>
+</html>

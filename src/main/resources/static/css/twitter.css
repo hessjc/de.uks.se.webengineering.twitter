@@ -1,0 +1,134 @@
+html {
+    position: relative;
+    min-height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+body {
+    margin-bottom: 50px;
+    background: url("../img/bg.png") top left no-repeat;
+    background-color: #C0DEED;
+}
+
+#content {
+    margin-top: 80px;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+*.icon-twitter-blue {
+    color: #4099FF;
+}
+
+.white, .white a {
+    color: #fff;
+}
+
+.fa-1-8x {
+    font-size: 1.8em;
+}
+
+.self-hr {
+    margin-top: 0px !important;
+    margin-bottom: 10px !important;
+}
+
+/* welcome */
+.col-md-4.box {
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px 10px 5px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+h3.white {
+    line-height: 30px;
+}
+
+/* navigation */
+.navigation-padding-top {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.input-group-addon.nav-input {
+    border-radius: 20px;
+    position: fixed;
+    z-index: 2;
+    margin: 0 0 0 170px;
+    height: 34px;
+    width: 40px;
+}
+
+input.form-control.nav-input {
+    border-radius: 20px;
+}
+
+.language {
+    cursor: pointer;
+}
+
+.dropdown.language {
+    padding-top: 5px;
+}
+
+/* content */
+.col-md-11.box {
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px 10px 5px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.col-md-12.box {
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px 10px 5px 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.row.content {
+    margin: 5px 5px 10px 5px;
+}
+
+/* dashboard */
+img.img-responsive.img-rounded.header {
+    min-height: 110px;
+    max-height: 140px;
+    width: 100%;
+}
+
+.dashboard-username {
+    font-size: 24px;
+    font-weight: bold;
+    padding-left: 8px;
+}
+
+table#dashboard-table th {
+    font-size: 11px;
+}
+
+.gravatar {
+    margin: -90px 0 20px 10px;
+}
+
+.row.settings {
+    padding-top: 10px;
+}
+
+/* sidebar */
+#sidebar {
+    padding-top: 10px;
+}
